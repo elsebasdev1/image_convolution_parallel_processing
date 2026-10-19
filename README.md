@@ -24,50 +24,47 @@ El diseño sigue la metodología de diseño de algoritmos paralelos (descomposic
 graph LR
     subgraph F1["Fase 1: Preparación"]
         direction TB
-        A1["Lectura con ImageIO"]
-        A2["Conversión a matriz 2D"]
-        A3["Matrices de salida"]
+        A1["Lectura con ImageIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        A2["Conversión a matriz 2D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        A3["Matrices de salida&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
         A1 --> A2 --> A3
     end
 
     subgraph F2["Fase 2: Convolución"]
         direction TB
-        B1["Benchmark secuencial"]
-        B2["Descomposición por filas"]
-        B3["Creación de hilos"]
+        B1["Benchmark secuencial&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        B2["Descomposición por filas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        B3["Creación de hilos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
         B1 --> B2 --> B3
     end
 
     subgraph F3["Fase 3: Sincronización"]
         direction TB
-        C1["Ejecución en 8 núcleos"]
-        C2["Bloqueo con join"]
-        C3["Speedup y Eficiencia"]
+        C1["Ejecución en 8 núcleos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        C2["Bloqueo con join&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        C3["Speedup y Eficiencia&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
         C1 --> C2 --> C3
     end
 
     subgraph F4["Fase 4: Salida"]
         direction TB
-        D1["Reconstrucción imagen"]
-        D2["Guardado en JPG"]
-        D3["Ventana comparativa"]
+        D1["Reconstrucción imagen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        D2["Guardado en JPG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        D3["Ventana comparativa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
         D1 --> D2 --> D3
     end
 
     F1 --> F2 --> F3 --> F4
 
-    style A1 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px
-    style A2 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px
-    style A3 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px
-    style B1 fill:#f0fdf4,stroke:#10b981,stroke-width:2px
-    style B2 fill:#f0fdf4,stroke:#10b981,stroke-width:2px
-    style B3 fill:#f0fdf4,stroke:#10b981,stroke-width:2px
-    style C1 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
-    style C2 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
-    style C3 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
-    style D1 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px
-    style D2 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px
-    style D3 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px
+    classDef azul fill:#eef5fb,stroke:#3b82f6,stroke-width:2px,color:#1f2937
+    classDef verde fill:#f0fdf4,stroke:#10b981,stroke-width:2px,color:#1f2937
+    classDef amarillo fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#1f2937
+    classDef rosa fill:#fdf2f8,stroke:#ec4899,stroke-width:2px,color:#1f2937
+
+    class A1,A2,A3 azul
+    class B1,B2,B3 verde
+    class C1,C2,C3 amarillo
+    class D1,D2,D3 rosa
 ```
 
 ### Descomposición del dominio
