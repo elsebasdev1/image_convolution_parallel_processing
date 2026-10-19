@@ -24,33 +24,45 @@ El diseño sigue la metodología de diseño de algoritmos paralelos (descomposic
 graph LR
     subgraph F1["Fase 1: Preparación"]
         direction TB
-        A1["Lectura con ImageIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        A2["Conversión a matriz 2D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        A3["Matrices de salida&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        A1["`Lectura de la imagen
+        con ImageIO`"]
+        A2["`Conversión a
+        matriz 2D`"]
+        A3["`Reserva de matrices
+        de salida`"]
         A1 --> A2 --> A3
     end
 
     subgraph F2["Fase 2: Convolución"]
         direction TB
-        B1["Benchmark secuencial&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        B2["Descomposición por filas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        B3["Creación de hilos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        B1["`Benchmark secuencial
+        (línea base)`"]
+        B2["`Descomposición
+        por filas`"]
+        B3["`Creación de hilos
+        HiloConvolucion`"]
         B1 --> B2 --> B3
     end
 
     subgraph F3["Fase 3: Sincronización"]
         direction TB
-        C1["Ejecución en 8 núcleos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        C2["Bloqueo con join&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        C3["Speedup y Eficiencia&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        C1["`Ejecución en 8
+        núcleos físicos`"]
+        C2["`Bloqueo con
+        Thread.join()`"]
+        C3["`Cálculo de Speedup
+        y Eficiencia`"]
         C1 --> C2 --> C3
     end
 
     subgraph F4["Fase 4: Salida"]
         direction TB
-        D1["Reconstrucción imagen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        D2["Guardado en JPG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-        D3["Ventana comparativa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        D1["`Reconstrucción
+        de la imagen`"]
+        D2["`Guardado
+        en JPG`"]
+        D3["`Ventana comparativa
+        con Swing`"]
         D1 --> D2 --> D3
     end
 
