@@ -21,19 +21,53 @@
 El diseño sigue la metodología de diseño de algoritmos paralelos (descomposición, comunicación, aglomeración y mapeo). Cada hilo escribe únicamente en su propio rango de filas de la matriz de salida y solo lee de la matriz de entrada, por lo que **no existen *Race Conditions*** ni se requiere sincronización durante el cálculo.
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 40, "rankSpacing": 40}}}%%
 graph LR
-    A1["FASE 1: PREPARACIÓN (I/O)<br/><br/>1. Lectura con ImageIO<br/>2. Conversión a matriz 2D<br/>3. Reserva de matrices de salida"]
-    B1["FASE 2: MOTOR DE CONVOLUCIÓN<br/><br/>1. Benchmark secuencial (base)<br/>2. Descomposición por filas<br/>3. Instanciación de hilos"]
-    C1["FASE 3: SINCRONIZACIÓN<br/><br/>1. Ejecución en 8 núcleos físicos<br/>2. Bloqueo con Thread.join()<br/>3. Cálculo de Speedup y Eficiencia"]
-    D1["FASE 4: SALIDA<br/><br/>1. Reconstrucción de la imagen<br/>2. Guardado en JPG<br/>3. Ventana comparativa Swing"]
+    subgraph F1["Fase 1: Preparación"]
+        direction TB
+        A1["Lectura con ImageIO"]
+        A2["Conversión a matriz 2D"]
+        A3["Matrices de salida"]
+        A1 --> A2 --> A3
+    end
 
-    A1 --> B1 --> C1 --> D1
+    subgraph F2["Fase 2: Convolución"]
+        direction TB
+        B1["Benchmark secuencial"]
+        B2["Descomposición por filas"]
+        B3["Creación de hilos"]
+        B1 --> B2 --> B3
+    end
 
-    style A1 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px,color:#1f2937
-    style B1 fill:#f0fdf4,stroke:#10b981,stroke-width:2px,color:#1f2937
-    style C1 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#1f2937
-    style D1 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px,color:#1f2937
+    subgraph F3["Fase 3: Sincronización"]
+        direction TB
+        C1["Ejecución en 8 núcleos"]
+        C2["Bloqueo con join"]
+        C3["Speedup y Eficiencia"]
+        C1 --> C2 --> C3
+    end
+
+    subgraph F4["Fase 4: Salida"]
+        direction TB
+        D1["Reconstrucción imagen"]
+        D2["Guardado en JPG"]
+        D3["Ventana comparativa"]
+        D1 --> D2 --> D3
+    end
+
+    F1 --> F2 --> F3 --> F4
+
+    style A1 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px
+    style A2 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px
+    style A3 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px
+    style B1 fill:#f0fdf4,stroke:#10b981,stroke-width:2px
+    style B2 fill:#f0fdf4,stroke:#10b981,stroke-width:2px
+    style B3 fill:#f0fdf4,stroke:#10b981,stroke-width:2px
+    style C1 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
+    style C2 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
+    style C3 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
+    style D1 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px
+    style D2 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px
+    style D3 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px
 ```
 
 ### Descomposición del dominio
