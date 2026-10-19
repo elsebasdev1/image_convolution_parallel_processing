@@ -21,11 +21,12 @@
 El diseño sigue la metodología de diseño de algoritmos paralelos (descomposición, comunicación, aglomeración y mapeo). Cada hilo escribe únicamente en su propio rango de filas de la matriz de salida y solo lee de la matriz de entrada, por lo que **no existen *Race Conditions*** ni se requiere sincronización durante el cálculo.
 
 ```mermaid
-graph TB
-    A1["<b>Fase 1: Preparación (I/O)</b><br/>① Lectura con ImageIO&nbsp;&nbsp;<br/>② Conversión a matriz 2D&nbsp;&nbsp;<br/>③ Reserva de matrices de salida&nbsp;&nbsp;"]
-    B1["<b>Fase 2: Motor de Convolución</b><br/>① Benchmark secuencial (base)&nbsp;&nbsp;<br/>② Descomposición por filas&nbsp;&nbsp;<br/>③ Instanciación de hilos&nbsp;&nbsp;"]
-    C1["<b>Fase 3: Sincronización</b><br/>① Ejecución en 8 núcleos físicos&nbsp;&nbsp;<br/>② Bloqueo con Thread.join()&nbsp;&nbsp;<br/>③ Cálculo de Speedup y Eficiencia&nbsp;&nbsp;"]
-    D1["<b>Fase 4: Salida</b><br/>① Reconstrucción de la imagen&nbsp;&nbsp;<br/>② Guardado en JPG&nbsp;&nbsp;<br/>③ Ventana comparativa Swing&nbsp;&nbsp;"]
+%%{init: {"flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 40, "rankSpacing": 40}}}%%
+graph LR
+    A1["FASE 1: PREPARACIÓN (I/O)<br/><br/>1. Lectura con ImageIO<br/>2. Conversión a matriz 2D<br/>3. Reserva de matrices de salida"]
+    B1["FASE 2: MOTOR DE CONVOLUCIÓN<br/><br/>1. Benchmark secuencial (base)<br/>2. Descomposición por filas<br/>3. Instanciación de hilos"]
+    C1["FASE 3: SINCRONIZACIÓN<br/><br/>1. Ejecución en 8 núcleos físicos<br/>2. Bloqueo con Thread.join()<br/>3. Cálculo de Speedup y Eficiencia"]
+    D1["FASE 4: SALIDA<br/><br/>1. Reconstrucción de la imagen<br/>2. Guardado en JPG<br/>3. Ventana comparativa Swing"]
 
     A1 --> B1 --> C1 --> D1
 
