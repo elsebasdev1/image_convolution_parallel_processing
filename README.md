@@ -21,40 +21,18 @@
 El diseño sigue la metodología de diseño de algoritmos paralelos (descomposición, comunicación, aglomeración y mapeo). Cada hilo escribe únicamente en su propio rango de filas de la matriz de salida y solo lee de la matriz de entrada, por lo que **no existen *Race Conditions*** ni se requiere sincronización durante el cálculo.
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
-graph LR
-    subgraph FASE_1[" "]
-        direction TB
-        A1["<b>Fase 1: Preparación (I/O)</b><br/><br/>① Lectura con ImageIO<br/>② Conversión a matriz int[alto][ancho]<br/>③ Reserva de matrices de salida"]
-    end
-    
-    subgraph FASE_2[" "]
-        direction TB
-        B1["<b>Fase 2: Motor de Convolución</b><br/><br/>① Benchmark Secuencial (Base)<br/>② Descomposición por bloques de filas<br/>③ Instanciación de HiloConvolucion"]
-    end
+graph TB
+    A1["<b>Fase 1: Preparación (I/O)</b><br/>① Lectura con ImageIO&nbsp;&nbsp;<br/>② Conversión a matriz 2D&nbsp;&nbsp;<br/>③ Reserva de matrices de salida&nbsp;&nbsp;"]
+    B1["<b>Fase 2: Motor de Convolución</b><br/>① Benchmark secuencial (base)&nbsp;&nbsp;<br/>② Descomposición por filas&nbsp;&nbsp;<br/>③ Instanciación de hilos&nbsp;&nbsp;"]
+    C1["<b>Fase 3: Sincronización</b><br/>① Ejecución en 8 núcleos físicos&nbsp;&nbsp;<br/>② Bloqueo con Thread.join()&nbsp;&nbsp;<br/>③ Cálculo de Speedup y Eficiencia&nbsp;&nbsp;"]
+    D1["<b>Fase 4: Salida</b><br/>① Reconstrucción de la imagen&nbsp;&nbsp;<br/>② Guardado en JPG&nbsp;&nbsp;<br/>③ Ventana comparativa Swing&nbsp;&nbsp;"]
 
-    subgraph FASE_3[" "]
-        direction TB
-        C1["<b>Fase 3: Sincronización</b><br/><br/>① Ejecución en 8 núcleos físicos<br/>② Bloqueo Thread.join()<br/>③ Cálculo de Speedup y Eficiencia"]
-    end
+    A1 --> B1 --> C1 --> D1
 
-    subgraph FASE_4[" "]
-        direction TB
-        D1["<b>Fase 4: Salida</b><br/><br/>① Reconstrucción BufferedImage<br/>② Guardado en JPG<br/>③ Ventana comparativa Swing"]
-    end
-    
-    FASE_1 ~~~ FASE_2
-    FASE_2 ~~~ FASE_3
-    FASE_3 ~~~ FASE_4
-    
-    style A1 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px,text-align:left
-    style B1 fill:#f0fdf4,stroke:#10b981,stroke-width:2px,text-align:left
-    style C1 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,text-align:left
-    style D1 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px,text-align:left
-    style FASE_1 fill:none,stroke:none
-    style FASE_2 fill:none,stroke:none
-    style FASE_3 fill:none,stroke:none
-    style FASE_4 fill:none,stroke:none
+    style A1 fill:#eef5fb,stroke:#3b82f6,stroke-width:2px,color:#1f2937
+    style B1 fill:#f0fdf4,stroke:#10b981,stroke-width:2px,color:#1f2937
+    style C1 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#1f2937
+    style D1 fill:#fdf2f8,stroke:#ec4899,stroke-width:2px,color:#1f2937
 ```
 
 ### Descomposición del dominio
